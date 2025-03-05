@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../utils/firebase";
+import { db } from "../config/firebaseConfig";
 
 function Stock() {
   const [stockData, setStockData] = useState(null);

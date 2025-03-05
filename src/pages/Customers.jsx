@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, query, where, addDoc } from "firebase/firestore";
-import { db } from "../utils/firebase";
+import { db } from "../config/firebaseConfig";
 
 function Customers() {
   const [customers, setCustomers] = useState([]);

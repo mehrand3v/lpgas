@@ -6,10 +6,8 @@ import {
   orderBy,
   limit,
   where,
-  
-
 } from "firebase/firestore";
-import { db } from "../utils/firebase";
+import { db } from "../config/firebaseConfig";
 
 function Analytics() {
   const [summary, setSummary] = useState({

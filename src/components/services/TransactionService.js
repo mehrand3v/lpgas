@@ -11,7 +11,7 @@ import {
   where,
   serverTimestamp,
 } from "firebase/firestore";
-import { db } from "../config/firebaseConfig";
+import { db } from "../../config/firebaseConfig";
 import { CustomerService } from "./CustomerService";
 
 // Utility to format transaction data

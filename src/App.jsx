@@ -1,4 +1,3 @@
-
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import CustomerList from "./components/customers/CustomerList";
 import AddCustomerForm from "./components/customers/AddCustomerForm";
@@ -7,6 +6,8 @@ import Suppliers from "./pages/Suppliers";
 import Expenses from "./pages/Expenses";
 import Stock from "./pages/Stock";
 import Sales from "./pages/Sales";
+import CreateTransactionForm from "./components/transactions/CreateTransactionForm";
+import TransactionList from "./components/transactions/TransactionList";
 import Analytics from "./pages/Analytics";
 
 function App() {
@@ -63,14 +64,20 @@ function App() {
           }}
         >
           <Routes>
+            {/* Sales Routes */}
             <Route path="/sales" element={<Sales />} />
+            <Route
+              path="/transactions/new"
+              element={<CreateTransactionForm />}
+            />
+            <Route path="/transactions" element={<TransactionList />} />
 
+            {/* Customer Routes */}
+            <Route path="/customers" element={<CustomerList />} />
+            <Route path="/customers/new" element={<AddCustomerForm />} />
+            <Route path="/customers/:customerId" element={<CustomerDetail />} />
 
-              <Route path="/customers" element={<CustomerList />} />
-              <Route path="/customers/new" element={<AddCustomerForm />} />
-              <Route path="/customers/:customerId" element={<CustomerDetail />}
-              />
-
+            {/* Other Routes */}
             <Route path="/suppliers" element={<Suppliers />} />
             <Route path="/expenses" element={<Expenses />} />
             <Route path="/stock" element={<Stock />} />

@@ -1,6 +1,8 @@
 
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Customers from "./pages/Customers";
+import CustomerList from "./components/customers/CustomerList";
+import AddCustomerForm from "./components/customers/AddCustomerForm";
+import CustomerDetail from "./components/customers/CustomerDetail";
 import Suppliers from "./pages/Suppliers";
 import Expenses from "./pages/Expenses";
 import Stock from "./pages/Stock";
@@ -62,7 +64,13 @@ function App() {
         >
           <Routes>
             <Route path="/sales" element={<Sales />} />
-            <Route path="/customers" element={<Customers />} />
+
+
+              <Route path="/customers" element={<CustomerList />} />
+              <Route path="/customers/new" element={<AddCustomerForm />} />
+              <Route path="/customers/:customerId" element={<CustomerDetail />}
+              />
+
             <Route path="/suppliers" element={<Suppliers />} />
             <Route path="/expenses" element={<Expenses />} />
             <Route path="/stock" element={<Stock />} />

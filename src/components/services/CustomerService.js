@@ -9,16 +9,16 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
-import { db } from "../config/firebaseConfig";
+import { db } from "../../config/firebaseConfig";
 
 // Utility to format customer data
 const formatCustomerData = (customerData) => ({
   name: customerData.name,
   phone: customerData.phone,
   address: customerData.address,
-  currentBalance: customerData.currentBalance || 0,
+  currentBalance: Number(customerData.currentBalance) || 0,
   lastTransactionDate: customerData.lastTransactionDate || null,
-  totalCylindersOut: customerData.totalCylindersOut || 0,
+  totalCylindersOut: Number(customerData.totalCylindersOut) || 0,
   createdAt: new Date(),
   updatedAt: new Date(),
 });
@@ -55,21 +55,27 @@ export const CustomerService = {
   },
 
   // Get customer by ID
-  async getCustomerById(customerId) {
-    try {
-      const docRef = doc(db, "customers", customerId);
-      const docSnap = await getDoc(docRef);
+ async getCustomerById(customerId) {
+  try {
+    const docRef = doc(db, 'customers', customerId);
+    const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        return { id: docSnap.id, ...docSnap.data() };
-      } else {
-        throw new Error("No such customer exists");
-      }
-    } catch (error) {
-      console.error("Error fetching customer:", error);
-      throw error;
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      return {
+        id: docSnap.id,
+        ...data,
+        currentBalance: Number(data.currentBalance) || 0,
+        totalCylindersOut: Number(data.totalCylindersOut) || 0
+      };
+    } else {
+      throw new Error('No such customer exists');
     }
-  },
+  } catch (error) {
+    console.error('Error fetching customer:', error);
+    throw error;
+  }
+},
 
   // Update customer
   async updateCustomer(customerId, updateData) {
@@ -110,9 +116,9 @@ export const validateCustomerForm = (customerData) => {
 
   // Phone validation (optional, but if provided, should be valid)
   if (customerData.phone) {
-    const phoneRegex = /^[0-9]{10}$/; // Assumes 10-digit phone number
+    const phoneRegex = /^[0-9]{11}$/; // Assumes 11-digit phone number
     if (!phoneRegex.test(customerData.phone)) {
-      errors.phone = "Phone number must be 10 digits";
+      errors.phone = "Phone number must be 11 digits";
     }
   }
 
